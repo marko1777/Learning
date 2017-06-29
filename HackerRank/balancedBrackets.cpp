@@ -21,62 +21,58 @@
 #include <algorithm>
 #include <unordered_map>
 
-using namespace std;
-
-bool isPair(std::stack<char> &parStack, const char par) {
-    if(parStack.empty()) return false;
-    if(parStack.top() == par) {
-        parStack.pop();
+bool isPair(std::stack<char> &bracketRepository, const char bracket) {
+    if (bracketRepository.empty()) return false;
+    if (bracketRepository.top() == bracket) {
+        bracketRepository.pop();
         return true;
     }
     return false;
 }
 
-bool is_balanced(string expression) {
-    std::stack<char> parStack;
+bool is_balanced(std::string givenExpression) {
+    std::stack<char> bracketRepository;
 
-    for(auto par : expression) {
-        switch(par) {
+    for (auto currentBracket : givenExpression) {
+        switch (currentBracket) {
             case '[':
             case '{':
             case '(':
-                parStack.push(par);
+                bracketRepository.push(currentBracket);
             break;
             case ']':
-                if(!(isPair(parStack, '['))) {
+                if(!(isPair(bracketRepository, '['))) {
                     return false;
                 }
             break;
             case '}':
-                if(!(isPair(parStack, '{'))) {
+                if(!(isPair(bracketRepository, '{'))) {
                     return false;
                 }
             break;
             case ')':
-                if(!(isPair(parStack, '('))) {
+                if(!(isPair(bracketRepository, '('))) {
                     return false;
                 }                   
             break;
             
         }
     }
-    if(parStack.empty()) {
+    if (bracketRepository.empty()) {
         return true;
-    } else {
-        return false;
-    }      
+    else
+        return false;   
 }
 
 int main(){
     int t;
-    cin >> t;
+    std::cin >> t;
     for(int a0 = 0; a0 < t; a0++){
-        string expression;
-        cin >> expression;
+        std::string expression;
+        std::cin >> expression;
         bool answer = is_balanced(expression);
         if(answer)
-            cout << "YES\n";
-        else cout << "NO\n";
+            std::cout << "YES\n";
+        else std::cout << "NO\n";
     }
-    return 0;
 }
